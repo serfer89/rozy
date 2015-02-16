@@ -92,8 +92,10 @@ $day = date("j")+1;
 $date=$day. $today;*/
 
 $time = time();
-$timeFINISH = strtotime("2111-11-02 23:59");
+$fin=date("Y-m-d")." 20:00";
+$timeFINISH = strtotime($fin);
 $timeDIFF = $timeFINISH - $time;
+
 
 echo "
 
