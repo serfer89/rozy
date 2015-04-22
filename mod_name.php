@@ -35,14 +35,14 @@ echo '<table class=auction>';
 $day = date("j");
 if ($day<=9){$day="0".$day;}
 $date1= '"'.$day.$month.$today.'"';
-
+$activ=1;
 $db = &JFactory::getDbo();
         $db->setQuery('SELECT `id_tov`
 FROM `r4int_auction`
-WHERE `auction_date` = '.$date1.'');
+WHERE `activ` = '.$activ.'');
 $replyAGprov = $db->query();
 $rowsAGprov = $db->getNumRows();
-if ($rowsAGprov ==0){echo "<center><tr><td><h1>Аукцион</h1></td></tr><tr><td>На техническом перерыве</td></tr></center></table>";}
+if ($rowsAGprov ==0){echo "<center><tr><td><h1>Аукцион</h1></td></tr><tr><td>на техническом перерыве</td></tr></center></table>";}
 else {
 
         $result = $db->loadResult();
@@ -92,10 +92,10 @@ $day = date("j")+1;
 $date=$day. $today;*/
 
 $time = time();
+
 $fin=date("Y-m-d")." 20:00";
 $timeFINISH = strtotime($fin);
 $timeDIFF = $timeFINISH - $time;
-
 
 echo "
 
@@ -181,7 +181,7 @@ echo"
 $db = &JFactory::getDbo();
         $db->setQuery('SELECT `price_last`
 FROM `r4int_auction`
-WHERE `auction_date` ='.$date1.' ');
+WHERE `activ` =1 ');
         $last_price = $db->loadResult();
 
 
@@ -225,12 +225,22 @@ echo"\"
 }
 }
 
+function time_on()
+{
 $time_on="00:15:00";
 if (date("H:i:s") > $time_on)
 {auction();}
+}
 
-else {echo "<br><br><br><center><h1>Аукцион</h1><br><br>На техническом перерыве<b></center>";}
+$time_on2="20:00:00";
 
+if (date("H:i:s") < $time_on2)
+{time_on();}
+
+else {echo "<center><h1>Аукцион</h1><br><br>На техническом перерыве</center>";}
+/*$r=time()+(14400);
+echo "[".time()."]";
+echo "--".$r;*/
 
 ?>
 
